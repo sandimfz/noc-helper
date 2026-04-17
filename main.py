@@ -1,18 +1,12 @@
-# main.py
-import sys, logging
+import sys
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import config
 from uploader_logic import process_single_batch
 
-# Setup Logging
-logging.basicConfig(level=logging.INFO, format=config.LOG_FORMAT, 
-                    handlers=[logging.FileHandler("monitoring_upload.log"), logging.StreamHandler()])
-
 def create_smart_session():
-    """Membuat session dengan fitur Auto-Retry"""
     session = requests.Session()
     retry_strategy = Retry(
         total=config.RETRY_COUNT,
@@ -49,7 +43,6 @@ def main():
     keterangan_raw = sys.argv[3] if len(sys.argv) > 3 else ""
     kerusakan_map = parse_kerusakan(keterangan_raw)
 
-    # Ekspansi Task
     tasks = []
     if batch_input.upper() == "ALL":
         tasks = [f"{j}_{b}" for j in config.SCHEDULE_JAM for b in config.BATCH_LIST]
@@ -59,21 +52,18 @@ def main():
     else:
         tasks = [batch_input]
 
-    # Gunakan Session dan ThreadPool
     with create_smart_session() as session:
         if not check_session(session, bearer_token):
             return
         with ThreadPoolExecutor(max_workers=config.MAX_WORKERS) as executor:
             future_to_task = {
-                executor.submit(process_single_batch, session, t, bearer_token, kerusakan_map): t 
+                executor.submit(process_single_batch, session, t, bearer_token, kerusakan_map): t
                 for t in tasks
             }
-            
-            for future in future_to_task:
+            for future in as_completed(future_to_task):
                 task_name = future_to_task[future]
                 try:
-                    result = future.result()
-                    print(f"[{task_name}] {result}")
+                    print(f"[{task_name}] {future.result()}")
                 except Exception as e:
                     print(f"[{task_name}] Error: {e}")
 
