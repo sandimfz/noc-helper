@@ -63,9 +63,12 @@ def main():
             for future in as_completed(future_to_task):
                 task_name = future_to_task[future]
                 try:
-                    print(f"[{task_name}] {future.result()}")
+                    jam, batch = task_name.split("_", 1)
+                    label = f"{jam} {batch.replace('_', ' ')}"
+                    print(f"{label} {future.result()}")
                 except Exception as e:
-                    print(f"[{task_name}] Error: {e}")
+                    jam, batch = task_name.split("_", 1)
+                    print(f"{jam} {batch.replace('_', ' ')} Error: {e}")
 
 if __name__ == "__main__":
     main()
