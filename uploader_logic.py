@@ -53,7 +53,7 @@ def process_single_batch(session, jam_batch, bearer_token, kerusakan_map):
             payload = {
                 "locationId": lid, "documentationDate": now.strftime("%Y-%m-%d"),
                 "documentationTime": item["time"], "source": "cctv",
-                "plnTokenRemaining": "0", "videotronStatus": v_status,
+                "plnTokenRemaining": "", "videotronStatus": v_status,
                 "notes": catatan, "networkStatus": item["status"]
             }
 
