@@ -61,9 +61,10 @@ def process_single_batch(session, jam_batch, bearer_token, kerusakan_map):
         for lid, item in queue.items():
             v_status, catatan = "normal", ""
             display_name_low = item['led_name'].lower()
-            for web_loc, note in kerusakan_map.items():
+            for web_loc, info in kerusakan_map.items():
                 if display_name_low in web_loc or web_loc in display_name_low:
-                    v_status, catatan = "tidak_normal", note
+                    v_status = info["status"]
+                    catatan = info["note"]
                     break
 
             payload = {

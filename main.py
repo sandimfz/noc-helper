@@ -18,12 +18,18 @@ def create_smart_session():
     return session
 
 def parse_kerusakan(raw_input):
+    # Format baru: "Nama:status:catatan" dipisah ";"
+    # Contoh: "Permata:tidak_normal:layar mati; Blibli:normal:terlihat baik; Dago:normal:"
     k_map = {}
-    if ":" in raw_input:
-        for pair in raw_input.split(";"):
-            if ":" in pair:
-                loc, note = pair.split(":", 1)
-                k_map[loc.strip().lower().replace("_", " ")] = note.strip()
+    if not raw_input:
+        return k_map
+    for pair in raw_input.split(";"):
+        parts = pair.strip().split(":", 2)
+        if len(parts) >= 2:
+            loc = parts[0].strip().lower().replace("_", " ")
+            status = parts[1].strip() if parts[1].strip() in ("normal", "tidak_normal") else "tidak_normal"
+            note = parts[2].strip() if len(parts) == 3 else ""
+            k_map[loc] = {"status": status, "note": note}
     return k_map
 
 def check_session(session, bearer_token):

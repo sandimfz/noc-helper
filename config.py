@@ -2,7 +2,7 @@ import os
 
 # Mapping Batch & Lokasi
 ALL_BATCHES = {
-    "Batch_1": {"Permata": 1, "Blibli": 19, "Jember_1": 37, "Jember_2": 37, "Gudang_Garam": 11, "Sigma": 55},
+    "Batch_1": {"Permata": 1, "Blibli": 19, "Jember": 37, "Gudang_Garam": 11, "Sigma": 55},
     "Batch_2": {"Cirebon": 32, "Dago": 21, "Garut": 26, "Gedebage": 31, "Kudus": 35, "Kuningan": 23},
     "Batch_3": {"Lembang": 33, "Majalengka": 38, "Pangandaran": 7, "Purwakarta": 40, "Subang": 6},
     "Batch_4": {"Djarum_Tasikmalaya": 30, "Tegal": 20, "Yudanegara": 34, "Cicadas": 17, "KHZ": 18, "Paskal": 36},
