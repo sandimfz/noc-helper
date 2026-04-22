@@ -6,7 +6,7 @@ ALL_BATCHES = {
     "Batch_2": {"Cirebon": 32, "Dago": 21, "Garut": 26, "Gedebage": 31, "Kudus": 35, "Kuningan": 23},
     "Batch_3": {"Lembang": 33, "Majalengka": 38, "Pangandaran": 7, "Purwakarta": 40, "Subang": 6},
     "Batch_4": {"Djarum_Tasikmalaya": 30, "Tegal": 20, "Yudanegara": 34, "Cicadas": 17, "KHZ": 18, "Paskal": 36},
-    "Batch_5": {"Khalifah": 49, "Sudirman": 16, "Padang": 15, "McD": 2, "Sukoharjo": 5}
+    "Batch_5": {"Khalifah": 49, "Sudirman": 16, "Padang": 15, "McD": 2, "Sukoharjo": 5, "Gasibu": 28}
 }
 
 SCHEDULE_JAM = ["08-00", "12-00", "16-00", "20-00", "00-00"]
